@@ -23,7 +23,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Synopsys Application Security Testing
+      - name: Black Duck (Full/Intelligent)
         if: ${{ github.event_name == 'push' }}
         uses: synopsys-sig/synopsys-action@main
         with:
@@ -38,7 +38,7 @@ jobs:
           MACOSX_BRIDGE_URL: "https://artifactory.internal.synopsys.com/artifactory/clops-local/clops.sig.synopsys.com/synopsys-action/0.1.155/ci-package-0.1.155-macosx.zip"
           GTHUB_TOKEN: ${{ github.token }}
 
-      - name: Synopsys Application Security Testing
+      - name: Black Duck (Rapid)
         if: ${{ github.event_name == 'pull_request' }}
         uses: synopsys-sig/synopsys-action@main
         with:
