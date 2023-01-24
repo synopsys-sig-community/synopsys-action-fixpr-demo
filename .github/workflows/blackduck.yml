@@ -34,9 +34,10 @@ jobs:
           blackduck_apiToken: ${{ secrets.BLACKDUCK_TOKEN }}
           blackduck_automation_fixpr: true
           blackduck_scan_full: true
+
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           MACOSX_BRIDGE_URL: "https://artifactory.internal.synopsys.com/artifactory/clops-local/clops.sig.synopsys.com/synopsys-action/0.1.155/ci-package-0.1.155-macosx.zip"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Black Duck (Rapid)
         if: ${{ github.event_name == 'pull_request' }}
@@ -48,6 +49,7 @@ jobs:
           blackduck_url: ${{ secrets.BLACKDUCK_URL }}
           blackduck_apiToken: ${{ secrets.BLACKDUCK_TOKEN }}
           blackduck_automation_fixpr: false
+
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           MACOSX_BRIDGE_URL: "https://artifactory.internal.synopsys.com/artifactory/clops-local/clops.sig.synopsys.com/synopsys-action/0.1.155/ci-package-0.1.155-macosx.zip"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
