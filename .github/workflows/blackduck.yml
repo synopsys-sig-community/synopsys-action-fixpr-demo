@@ -1,0 +1,57 @@
+name: Black Duck
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  blackduck:
+    # The type of runner that the job will run on
+    runs-on: [self-hosted]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Black Duck (Full/Intelligent)
+        if: ${{ github.event_name == 'push' }}
+        uses: synopsys-sig/synopsys-action@main
+        with:
+          # For demo purposes only
+          bridge_download_url: ${{ env.MACOSX_BRIDGE_URL }}
+
+          blackduck_url: ${{ secrets.BLACKDUCK_URL }}
+          blackduck_apiToken: ${{ secrets.BLACKDUCK_TOKEN }}
+          blackduck_automation_fixpr: true
+          blackduck_scan_full: true
+
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Black Duck (Rapid)
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: synopsys-sig/synopsys-action@main
+        with:
+          # For demo purposes only
+          bridge_download_url: ${{ env.MACOSX_BRIDGE_URL }}
+
+          blackduck_url: ${{ secrets.BLACKDUCK_URL }}
+          blackduck_apiToken: ${{ secrets.BLACKDUCK_TOKEN }}
+          blackduck_automation_fixpr: false
+
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          DETECT_BLACKDUCK_RAPID_COMPARE_MODE: BOM_COMPARE_STRICT
