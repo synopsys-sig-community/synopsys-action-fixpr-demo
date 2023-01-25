@@ -49,3 +49,5 @@ jobs:
           blackduck_automation_fixpr: false
 
           github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          DETECT_BLACKDUCK_RAPID_COMPARE_MODE: BOM_COMPARE_STRICT
