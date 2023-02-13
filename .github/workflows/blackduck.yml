@@ -32,7 +32,7 @@ jobs:
           blackduck_automation_fixpr: true
           blackduck_scan_full: true
           github_token: ${{ secrets.BRIDGE_GITHUB_PAT }}
-          blackduck_scan_failure_severities: ALL
+          blackduck_scan_failure_severities: "[\"ALL\"]"
 
       - name: Black Duck (Rapid)
         if: ${{ github.event_name == 'pull_request' }}
